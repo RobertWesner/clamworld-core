@@ -1,0 +1,6 @@
+name: clamworld-core
+main: io.wesner.robert.cb1060.clamworldcore.ClamworldCore
+version: ${version}
+description: >
+    Create temporary worlds based on existing ones.
+commands: {}
