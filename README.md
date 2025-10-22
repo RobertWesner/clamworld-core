@@ -13,7 +13,8 @@ Built on [Tsunami](https://github.com/BetaMC-Developers/Tsunami) but should work
 ```kt
 val pm = server.pluginManager
 val cw = pm.getPlugin("clamworld-core") as ClamworldCore
-val template = server.getWorld("your-template-world-name")
+// createWorld does not override an existing world
+val template = server.createWorld("your-template-world-name")
 
 // creates a new copy of a template world
 clamworld = cw.instantiate(template).with {

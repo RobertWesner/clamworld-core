@@ -32,19 +32,19 @@ class EventListener : Listener {
             return
         }
 
-        if (event.entity is Player && event.entity in clamworld.spectators) {
+        if (event.entity is Player && !clamworld.setup.guard.playerTakeDamage) {
             event.isCancelled = true
 
             return
         }
 
-        if (event.entity is Player && !clamworld.setup.guard.allowPvp) {
+        if (event is EntityDamageByEntityEvent && event.entity is Player && event.damager is Player && !clamworld.setup.guard.allowPvp) {
             event.isCancelled = true
 
             return
         }
 
-        if (event is EntityDamageByEntityEvent && event.entity !is Player && event.damager is Player) {
+        if (event is EntityDamageByEntityEvent && event.entity !is Player && event.damager is Player && !clamworld.setup.guard.allowPve) {
             event.isCancelled = true
 
             return

@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "2.1.20"
-    id("com.gradleup.shadow") version "8.3.6"
+    id("com.gradleup.shadow") version "8.3.6" // TODO: remove
 }
 
 group = "io.wesner.robert.cb1060.clamworldcore"
@@ -25,10 +25,6 @@ tasks.processResources {
     filesMatching("plugin.yml") {
         expand(project.properties)
     }
-}
-tasks.shadowJar {
-//    relocate("kotlin", "io.wesner.robert.cb1060.clamworldcore.kotlin")
-//    relocate("kotlinx", "io.wesner.robert.cb1060.clamworldcore.kotlinx")
 }
 kotlin {
     jvmToolchain(8)

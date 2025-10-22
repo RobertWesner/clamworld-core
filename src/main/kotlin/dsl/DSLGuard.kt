@@ -6,6 +6,7 @@ class DSLGuard {
     var allowBlockPlace = true
     var allowPve = true
     var allowPvp = true
+    var playerTakeDamage = true
     var allowSpectators = false
     var mobGriefing = true
     var leavesDecay = true

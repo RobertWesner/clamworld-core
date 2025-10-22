@@ -2,12 +2,10 @@ package io.wesner.robert.cb1060.clamworldcore
 
 import io.wesner.robert.cb1060.clamworldcore.listener.EventListener
 import org.apache.commons.io.FileUtils
-import org.bukkit.Bukkit
 import org.bukkit.World
-import org.bukkit.event.Event
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
-import java.util.UUID
+import java.util.*
 import java.util.logging.Logger
 
 class ClamworldCore : JavaPlugin() {
@@ -16,19 +14,22 @@ class ClamworldCore : JavaPlugin() {
             private set
     }
 
+    val logger: Logger = Logger.getLogger("Minecraft")
     private var managed = mutableMapOf<String, Clamworld>()
 
     override fun onDisable() {
-        managed.forEach { i, clamworld -> remove(clamworld.world.name, !clamworld.preserve) }
-        managed = mutableMapOf()
+        managed.toMap().forEach { i, clamworld -> remove(clamworld.world.name, !clamworld.preserve) }
+        managed.clear()
+
+        logger.info("${description.name} was disabled!")
     }
 
     override fun onEnable() {
         plugin = this
 
-        val pm = server.pluginManager
-        val el = EventListener()
-        pm.registerEvents(el, this)
+        server.pluginManager.registerEvents(EventListener(), this)
+
+        logger.info("${description.name} was enabled!")
     }
 
     /**
@@ -93,6 +94,8 @@ class ClamworldCore : JavaPlugin() {
     fun remove(name: String, delete: Boolean = false) {
         if (name in managed) {
             val clamworld = managed[name]!!
+
+            clamworld.world.players.forEach { it leave clamworld }
             server.unloadWorld(clamworld.world, true)
 
             if (delete) {

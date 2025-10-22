@@ -2,10 +2,8 @@ package io.wesner.robert.cb1060.clamworldcore
 
 import io.wesner.robert.cb1060.clamworldcore.dsl.DSLSetup
 import io.wesner.robert.cb1060.clamworldcore.exception.ClamworldException
-import org.apache.commons.io.FileUtils
 import org.bukkit.World
 import org.bukkit.entity.Player
-import sun.print.resources.serviceui
 import java.io.File
 
 class Clamworld(val world: World, val cwFolder: File) {
