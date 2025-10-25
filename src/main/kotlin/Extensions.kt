@@ -9,4 +9,5 @@ infix fun Player.spectate(world: Clamworld) = world.playerSpectate(this)
 
 infix fun Player.leave(world: Clamworld) = world.playerLeave(this)
 
+// TODO: this should be based on some flag and not just name because it breaks wrap :^)
 val World.isClamworld get() = this.name.startsWith("cw-")
