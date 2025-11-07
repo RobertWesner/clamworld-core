@@ -21,6 +21,7 @@ import org.bukkit.event.entity.EntityInteractEvent
 import org.bukkit.event.player.PlayerChangedWorldEvent
 import org.bukkit.event.player.PlayerCommandPreprocessEvent
 import org.bukkit.event.player.PlayerDropItemEvent
+import org.bukkit.event.player.PlayerPickupItemEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.weather.WeatherChangeEvent
 import kotlin.collections.contains
@@ -67,6 +68,19 @@ class EventListener : Listener {
 
     @EventHandler
     fun onPlayerDropItem(event: PlayerDropItemEvent) {
+        val world = event.player.world
+        if (!world.isClamworld || !plugin.has(world.name)) return
+        val clamworld = plugin.get(world.name)!!
+
+        if (event.player in clamworld.spectators) {
+            event.isCancelled = true
+
+            return
+        }
+    }
+
+    @EventHandler
+    fun onPlayerPickupItem(event: PlayerPickupItemEvent) {
         val world = event.player.world
         if (!world.isClamworld || !plugin.has(world.name)) return
         val clamworld = plugin.get(world.name)!!
