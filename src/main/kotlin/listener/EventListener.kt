@@ -20,8 +20,10 @@ import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.EntityInteractEvent
 import org.bukkit.event.player.PlayerChangedWorldEvent
 import org.bukkit.event.player.PlayerCommandPreprocessEvent
+import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.weather.WeatherChangeEvent
+import kotlin.collections.contains
 
 class EventListener : Listener {
     val plugin = ClamworldCore.plugin
@@ -57,6 +59,19 @@ class EventListener : Listener {
         }
 
         if (event is EntityDamageByEntityEvent && event.entity !is Player && event.damager is Player && !clamworld.setup.guard.allowPve) {
+            event.isCancelled = true
+
+            return
+        }
+    }
+
+    @EventHandler
+    fun onPlayerDropItem(event: PlayerDropItemEvent) {
+        val world = event.player.world
+        if (!world.isClamworld || !plugin.has(world.name)) return
+        val clamworld = plugin.get(world.name)!!
+
+        if (event.player in clamworld.spectators) {
             event.isCancelled = true
 
             return

@@ -37,6 +37,8 @@ class Clamworld(val world: World, val cwFolder: File) {
 
         players.add(player)
         player.teleport(world.spawnLocation)
+
+        spectators.forEach { spectator -> player.hidePlayer(spectator) }
     }
 
     fun playerSpectate(spectator: Player) {
@@ -45,6 +47,10 @@ class Clamworld(val world: World, val cwFolder: File) {
         if (spectator.world.isClamworld) plugin.get(spectator.world.name)?.players?.remove(spectator)
 
         players.forEach { player -> player.hidePlayer(spectator) }
+        spectators.forEach { other ->
+            spectator.hidePlayer(other)
+            other.hidePlayer(spectator)
+        }
 
         spectators.add(spectator)
         spectator.teleport(world.spawnLocation)
