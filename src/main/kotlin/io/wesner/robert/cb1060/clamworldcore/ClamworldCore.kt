@@ -1,6 +1,6 @@
 package io.wesner.robert.cb1060.clamworldcore
 
-import io.wesner.robert.cb1060.clamworldcore.listener.EventListener
+import io.wesner.robert.cb1060.clamworldcore.exception.ClamworldRemoveException
 import org.apache.commons.io.FileUtils
 import org.bukkit.World
 import org.bukkit.plugin.java.JavaPlugin
@@ -12,9 +12,11 @@ class ClamworldCore : JavaPlugin() {
     companion object {
         lateinit var plugin: ClamworldCore
             private set
+
+        const val FLAG_NAME = ".cw"
     }
 
-    val logger: Logger = Logger.getLogger("Minecraft")
+    val logger: Logger = Logger.getLogger("Minecraft")!!
     private var managed = mutableMapOf<String, Clamworld>()
 
     override fun onDisable() {
@@ -39,11 +41,15 @@ class ClamworldCore : JavaPlugin() {
      */
     fun wrap(world: World): Clamworld {
         val cwFolder = File(world.name, "clamworld")
-
         if (!cwFolder.isDirectory) {
             if (cwFolder.exists()) cwFolder.delete()
 
             cwFolder.mkdir()
+        }
+
+        val cwFlag = File(world.name, FLAG_NAME)
+        if (!cwFlag.exists()) {
+            cwFlag.writeText("# Clams are back in stock!")
         }
 
         val clamworld = Clamworld(world, cwFolder)
@@ -61,8 +67,10 @@ class ClamworldCore : JavaPlugin() {
         server.unloadWorld(world, true)
 
         File(template.name).mkdirs()
-        FileUtils.copyFile(File(template.name, "level.dat"), File(name, "level.dat"))
-        FileUtils.copyFile(File(template.name, "level.dat_old"), File(name, "level.dat_old"))
+
+        arrayOf("level.dat", "level.dat_old", "session.lock").forEach {
+            FileUtils.copyFile(File(template.name, it), File(name, it))
+        }
 
         val regionsFile = File(name, "region")
         FileUtils.deleteDirectory(regionsFile)
@@ -92,6 +100,11 @@ class ClamworldCore : JavaPlugin() {
      * DO NOT USE ON TEMPLATES WITH delete=true.
      */
     fun remove(name: String, delete: Boolean = false) {
+        val cwFlag = File(name, FLAG_NAME)
+        if (cwFlag.exists() && !cwFlag.delete()) {
+            throw ClamworldRemoveException("Could not remove flag from world ${name}.")
+        }
+
         if (name in managed) {
             val clamworld = managed[name]!!
 

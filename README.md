@@ -1,6 +1,6 @@
 # Clamworld for b1.7.3
 
-Built on [Tsunami](https://github.com/BetaMC-Developers/Tsunami) but should work with [Project Poseidon](https://github.com/retromcorg/Project-Poseidon).
+Built on [Project Poseidon](https://github.com/retromcorg/Project-Poseidon).
 
 ## Dependencies
 

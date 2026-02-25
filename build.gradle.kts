@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.wesner.robert.cb1060.clamworldcore"
-version = "0.1"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("org.betamc:tsunami:1.0.4")
+    implementation("com.legacyminecraft.poseidon:poseidon-craftbukkit:1.+")
     implementation("commons-io:commons-io:2.20.0")
 }
 

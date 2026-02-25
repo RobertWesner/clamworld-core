@@ -13,5 +13,11 @@ class DSLGuard {
     var iceMelt = true
     var snowForm = true
     var weatherChange = true
+    var thundererChange = true
     var blockSpread = true
+    var blockIgnite = true
+    var blockBurn = true
+    var blockFromTo = true
+    var paintingPlace = true
+    var paintingBreak = true
 }
