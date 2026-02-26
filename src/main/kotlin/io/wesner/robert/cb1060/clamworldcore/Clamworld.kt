@@ -12,7 +12,7 @@ class Clamworld(val world: World, val cwFolder: File) {
     var wasSetUp = false
         private set
     val plugin = ClamworldCore.plugin
-    val setup = DSLSetup(this)
+    val setup = DSLSetup()
 
     private var _players = mutableListOf<Player>()
     private var _spectators = mutableListOf<Player>()

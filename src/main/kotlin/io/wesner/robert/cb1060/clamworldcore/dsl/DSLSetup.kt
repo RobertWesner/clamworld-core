@@ -1,8 +1,9 @@
 package io.wesner.robert.cb1060.clamworldcore.dsl
 
-import io.wesner.robert.cb1060.clamworldcore.Clamworld
+import io.wesner.robert.cb1060.clamworldcore.ClamworldDsl
 
-class DSLSetup(val clamworld: Clamworld) {
+@ClamworldDsl
+class DSLSetup {
     val world = DSLWorld()
     val guard = DSLGuard()
     var allowedCommands = listOf<String>()

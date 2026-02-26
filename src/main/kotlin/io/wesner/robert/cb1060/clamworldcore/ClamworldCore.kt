@@ -61,8 +61,7 @@ class ClamworldCore : JavaPlugin() {
     /**
      * Creates a new copied Clamworld instance from a template world.
      */
-    fun instantiate(template: World): Clamworld {
-        val name = "cw-${UUID.randomUUID()}"
+    fun instantiate(template: World, name: String = "cw-${UUID.randomUUID()}", preserve: Boolean = false): Clamworld {
         val world = server.createWorld(name, World.Environment.NORMAL)
         server.unloadWorld(world, true)
 
@@ -83,7 +82,7 @@ class ClamworldCore : JavaPlugin() {
         }
 
         val clamworld = wrap(server.createWorld(name, World.Environment.NORMAL))
-        clamworld.preserve = false
+        clamworld.preserve = preserve
 
         return clamworld
     }

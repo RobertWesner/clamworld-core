@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.3.10"
     id("com.gradleup.shadow") version "8.3.6" // TODO: remove
 }
 
 group = "io.wesner.robert.cb1060.clamworldcore"
-version = "0.2.0"
+version = "0.3.0"
 
 repositories {
     mavenCentral()
