@@ -258,7 +258,7 @@ class EventListener : Listener {
         if (!world.isClamworld || !world.isManaged) return
         val clamworld = plugin.get(world.name)!!
 
-        if (!clamworld.setup.guard.thundererChange) {
+        if (!clamworld.setup.guard.thunderChange) {
             event.isCancelled = true
 
             return
