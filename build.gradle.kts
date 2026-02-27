@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.wesner.robert.cb1060.clamworldcore"
-version = "0.3.0"
+version = "0.3.1"
 
 repositories {
     mavenCentral()
