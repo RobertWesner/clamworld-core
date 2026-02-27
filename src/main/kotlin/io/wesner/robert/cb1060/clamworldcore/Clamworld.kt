@@ -18,9 +18,9 @@ class Clamworld(val world: World, val cwFolder: File) {
     private var _spectators = mutableListOf<Player>()
 
     // immutable public
-    val players: List<Player> = _players
-    val spectators: List<Player> = _spectators
-    val participants: List<Player> = players + spectators
+    val players: List<Player> get() = _players
+    val spectators: List<Player> get() = _spectators
+    val participants: List<Player> get() = _players + _spectators
 
     fun with(setup: DSLSetup.() -> Unit): Clamworld {
         if (wasSetUp) {
