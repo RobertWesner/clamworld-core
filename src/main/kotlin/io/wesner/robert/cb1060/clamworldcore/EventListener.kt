@@ -19,7 +19,6 @@ import org.bukkit.event.block.LeavesDecayEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityExplodeEvent
-import org.bukkit.event.entity.EntityInteractEvent
 import org.bukkit.event.painting.PaintingBreakEvent
 import org.bukkit.event.painting.PaintingPlaceEvent
 import org.bukkit.event.player.PlayerChangedWorldEvent
@@ -173,6 +172,8 @@ class EventListener : Listener {
         val world = event.player.world
         if (!world.isClamworld || !world.isManaged) return
         val clamworld = plugin.get(world.name)!!
+
+        if (clamworld.setup.allowedCommands.isEmpty()) return
 
         val i = event.message.indexOf(' ')
         if (event.message.substring(1, if (i == -1) event.message.length else i) !in clamworld.setup.allowedCommands) {
