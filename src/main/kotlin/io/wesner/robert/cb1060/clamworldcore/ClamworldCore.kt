@@ -68,7 +68,10 @@ class ClamworldCore : JavaPlugin() {
         File(template.name).mkdirs()
 
         arrayOf("level.dat", "level.dat_old", "session.lock").forEach {
-            FileUtils.copyFile(File(template.name, it), File(name, it))
+            val src = File(template.name, it)
+            if (src.exists()) {
+                FileUtils.copyFile(src, File(name, it))
+            }
         }
 
         val regionsFile = File(name, "region")
